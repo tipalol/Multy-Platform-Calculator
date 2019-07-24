@@ -13,6 +13,13 @@ namespace Calculator
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        double buffer = 0;
+
+        public double Result
+        {
+            get;set;
+        }
+
         Button Plus, Minus, Devide, Multiply, Enter;
 
         Button[] KeyPad;
@@ -36,18 +43,33 @@ namespace Calculator
 
             //Keypad buttons
             KeyPad = new Button[10];
-            for (uint index = 0; index < KeyPad.Count(); ++index)
+            for (uint index = 0; index < KeyPad.Length; ++index)
             {
                 ref var button = ref KeyPad[index];
                 button = new Button() { Text = index.ToString() };
                 button.Pressed += (o, e) => { KeyPadButton_Pressed(index); };
             }
+
+            //Setup the grid
+            var grid = new AutoGrid();
+
+            grid.DefineGrid(3, 5);
+
+            for (var index = KeyPad.Length-1; index >= 0; index--)
+            {
+                ref var button = ref KeyPad[index];
+                grid.AutoAdd(button);
+            }
+
+            //Show content
+            Content = grid;
         }
 
         #region Keypad buttons
         private void KeyPadButton_Pressed(uint index)
         {
-            throw new NotImplementedException();
+            buffer *= 10.0;
+            buffer += index;
         }
         #endregion
 
@@ -56,27 +78,31 @@ namespace Calculator
         //Operations buttons
         private void Enter_Pressed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Result = buffer;
         }
 
         private void Multiply_Pressed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Result *= buffer;
+            buffer = 0.0;
         }
 
         private void Devide_Pressed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Result /= buffer;
+            buffer = 0.0;
         }
 
         private void Minus_Pressed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Result -= buffer;
+            buffer = 0.0;
         }
 
         private void Plus_Pressed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Result += buffer;
+            buffer = 0.0;
         }
         //////////////////////////////////////////////////////
         #endregion
