@@ -38,7 +38,7 @@ namespace Calculator
         }
 
         //Operation buttons
-        Button Plus, Minus, Divide, Multiply, Enter;
+        Button Plus, Minus, Divide, Multiply;
 
         //Number's buttons
         Button[] KeyPad;
@@ -63,15 +63,13 @@ namespace Calculator
             //Operation buttons
             Plus = new Button() { Text = "Plus", BorderWidth = 0 };
             Minus = new Button() { Text = "Minus", BorderWidth = 0 };
-            Divide = new Button() { Text = "Devide", BorderWidth = 0 };
+            Divide = new Button() { Text = "Divide", BorderWidth = 0 };
             Multiply = new Button() { Text = "Multiply", BorderWidth = 0 };
-            Enter = new Button() { Text = "Enter" };
 
             Plus.Pressed += Plus_Pressed;
             Minus.Pressed += Minus_Pressed;
             Divide.Pressed += Divide_Pressed;
             Multiply.Pressed += Multiply_Pressed;
-            Enter.Pressed += Enter_Pressed;
 
             //Keypad buttons
             KeyPad = new Button[10];
@@ -126,11 +124,6 @@ namespace Calculator
         #region Operation buttons
         //////////////////////////////////////////////////////
         //Operations buttons
-        private void Enter_Pressed(object sender, EventArgs e)
-        {
-            Result = Buffer;
-        }
-
         private void Multiply_Pressed(object sender, EventArgs e)
         {
             Result *= Buffer;
